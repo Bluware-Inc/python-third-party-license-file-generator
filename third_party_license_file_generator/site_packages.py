@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import distutils
+import distutils.spawn
 import os
 import shlex
 import signal
