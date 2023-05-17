@@ -256,12 +256,12 @@ if __name__ == "__main__":
     ]
 
     for _, module in sorted(joined.modules_by_module_name.items()):
-        blurb = u"### {0}\n```text\n {1}\n\n".format(
+        blurb = u"### {0} {1}\n```text\n".format(
             module.name,
-            module.license_name,
+            module.version,
         )
 
-        blurb += u"{0}".format(module.license_file)
+        blurb += u"{0} \n ```".format(module.license_file)
 
         third_party_licenses += [blurb.strip()]
 

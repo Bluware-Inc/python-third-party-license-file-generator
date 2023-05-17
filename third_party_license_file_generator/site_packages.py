@@ -61,6 +61,7 @@ def _run_subprocess(command_line):
 class Module(object):
     __slots__ = [
         "name",
+        "version",
         "author",
         "home_page",
         "license_name",
@@ -68,8 +69,9 @@ class Module(object):
         "requires",
     ]
 
-    def __init__(self, name, author, home_page, license_name, license_file, requires):
+    def __init__(self, name, version, author, home_page, license_name, license_file, requires):
         self.name = name
+        self.version = version
         self.author = author
         self.home_page = home_page
         self.license_name = license_name
@@ -199,6 +201,7 @@ class SitePackages(object):
 
         metadata = {
             "module_name": None,
+            "version": None,
             "author": None,
             "home_page": None,
             "license_name": None,
@@ -212,6 +215,8 @@ class SitePackages(object):
 
             if key == "Name":
                 metadata["module_name"] = value
+            elif key == "Version":
+                metadata["version"] = value
             elif key == "Author":
                 metadata["author"] = value
             elif key == "Author-email":
@@ -348,6 +353,7 @@ class SitePackages(object):
 
             module = Module(
                 name=module_name,
+                version=metadata["version"],
                 author=metadata["author"],
                 home_page=metadata["home_page"],
                 license_name=license_name,
