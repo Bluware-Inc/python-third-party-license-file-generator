@@ -220,11 +220,12 @@ if __name__ == "__main__":
         module_names = []
         for module in modules:
             module_names += [module.name]
-            module_output += "\t{0} by {1} ({2})\n".format(
+            module_info = "{0} by {1} ({2})".format(
                 repr(module.name),
                 repr(module.author),
                 repr(module.home_page),
             )
+            module_output += "\t{0}\n".format(module_info.encode('ascii', 'ignore'))
 
         warning = ""
         if not args.permit_gpl and license_name.startswith("GPL") and not all([x in args.gpl_exception for x in module_names]):
