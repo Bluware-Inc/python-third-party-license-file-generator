@@ -280,9 +280,11 @@ class SitePackages(object):
 
     def _read_license(self, license_path):
         with open(license_path, "r", encoding="utf-8", errors="ignore") as f:
-            data = f.read()
+            data = []
+            for line in f.readlines():
+                data.append((line.rstrip()))
 
-        return data.strip()
+        return "\n".join(data)
 
     def _read_site_packages(self):
         for module_name, metadata in self._module_metadatas_by_module_name.items():

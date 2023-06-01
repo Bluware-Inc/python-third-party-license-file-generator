@@ -17,6 +17,7 @@ try:
 except Exception:
     pass
 
+
 parser = argparse.ArgumentParser(
     prog="python -m third_party_license_file_generator",
     description=(
@@ -225,7 +226,7 @@ if __name__ == "__main__":
                 repr(module.author),
                 repr(module.home_page),
             )
-            module_output += "\t{0}\n".format(module_info.encode('ascii', 'ignore'))
+            module_output += "\t{0}\n".format(module_info.encode('ascii', 'ignore').strip())
 
         warning = ""
         if not args.permit_gpl and license_name.startswith("GPL") and not all([x in args.gpl_exception for x in module_names]):
@@ -249,20 +250,21 @@ if __name__ == "__main__":
 
     third_party_licenses = []
 
-    third_party_licenses += [
-        u"""# Attributions \n
-        {0} contains some code and other resources that are provided under specific licenses from the original authors. 
-        Bluware, inc. gratefully acknowledges these contributions.         
-         \n\n ## Licensed Software""".format(args.application_name)
-    ]
+    intro = "\n".join([
+        u"# Attributions\n",
+        u"{0} contains some code and other resources that are provided under specific licenses from the original authors.",
+        u"Bluware, inc. gratefully acknowledges these contributions.\n",
+        u"## Licensed Software",
+    ])
+    third_party_licenses += [intro.format(args.application_name)]
 
     for _, module in sorted(joined.modules_by_module_name.items()):
         blurb = u"### {0} {1}\n```text\n".format(
-            module.name,
-            module.version,
+            module.name.strip(),
+            module.version.strip(),
         )
 
-        blurb += u"{0} \n ```".format(module.license_file)
+        blurb += u"{0}\n```".format(module.license_file)
 
         third_party_licenses += [blurb.strip()]
 
