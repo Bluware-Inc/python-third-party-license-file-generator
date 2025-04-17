@@ -252,7 +252,7 @@ class SitePackages(object):
                                               metadata_dict=metadata,
                                               key="home_page",
                                               value=value)
-            elif key == "License":
+            elif key == "License" or key == "License-Expression":
                 # Used for setup.py metadata packages
                 self._set_metadata_dict_value(metadata_path=metadata_path,
                                               metadata_dict=metadata,
